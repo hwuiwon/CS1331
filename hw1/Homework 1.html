@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Homework 1</title>
+  <meta name="viewport" content="width=device-width">
+
+  <!-- syntax highlighting CSS -->
+  <link rel="stylesheet" href="../../../css/syntax.css">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="../../../css/main.css">
+
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="../../../css/bootstrap.min.css">
+
+  <!-- Custom styles for this template -->
+  <link href="css/navbar-fixed-top.css" rel="stylesheet">
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+      <![endif]-->
+
+       <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+    </head>
+    <body>
+
+      <div class="container">
+      <h1 id="homework-1">Homework 1</h1>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>This homework will cover basic Java control structures, 1-D arrays, file I/O, and string manipulation.</p>
+
+<h3 id="downloadables">Downloadables</h3>
+
+<ul>
+  <li><a href="grades.csv">grades.csv</a></li>
+</ul>
+
+<h2 id="problem-description">Problem Description</h2>
+
+<p>You are a Georgia Tech professor teaching a class. It is the end of the semester and you want to visualize the distribution of your students’ grades.</p>
+
+<h2 id="solution-description">Solution Description</h2>
+
+<p>Write a single Java class that, when run as a console program in a directory containing a properly formatted grades file (more below), prints a histogram of the grade distribution to STDOUT (the console). Name your class <code class="highlighter-rouge">Histogram</code> and save its source code in an appropriately named file.</p>
+
+<p>A histogram is a graphical representation of a sequence of “bins” which represent ranges of values. Each bin contains a number which represents the number of occurences of data points that lie within the range of values represented by the bin. Your program will take two inputs (more later): the name of a data file and the number of bins to create in the histogram. You will represent these bins as elements of an array and your program will count the number of occurrences of values from the data file that lie within the ranges represented by each bin. The data values will lie in the range <a href="https://en.wikipedia.org/wiki/Bracket_(mathematics)#Intervals">[0, 100]</a>. For example, if we had a data file with these contents:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Dead Starks, 6
+Dead Lannisters, 3
+Luftballons, 99
+</code></pre></div></div>
+
+<p>and you create a histogram with two bins, the array to represent the bins would contain <code class="highlighter-rouge">[2, 1]</code>, where the first element of the array contains the count of values in the interval [0, 50] and the second element contains the count of values in [51, 100].</p>
+
+<p>After counting the number of grades in each bin, your program will print a horizontal histogram. You must also label the range of each bin, which can be derived from the number of bins and the range of data values. Each bin should have the same sized range except if the number of bins does not divide 101 evenly, the extra should be included in the lowest bin.</p>
+
+<p>The Histogram should look something like this:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>100 - 91 | [][][][][][][][][][][][][]
+ 90 - 81 | [][][][][][][][][][][][][][][][][][][][][][][][][][]
+ 80 - 71 | [][][][][][][][][][][][][][]
+ 70 - 61 | [][][][][][][][][][][][][][][][]
+ 60 - 51 | [][][][][][][][]
+ 50 - 41 | [][][][][]
+ 40 - 31 | [][][][][][][]
+ 30 - 21 | [][]
+ 20 - 11 |
+ 10 -  0 | [][]
+</code></pre></div></div>
+
+<p>The above histogram has 10 bins. Because there are 101 different possible grades (0-100) and 101 is not divisible by 10, we make the smallest bin include the extra. The class had 2 grades in the range 10-0, 0 grades in the range 11-20, 2 grades in the range 21-30, etc.</p>
+
+<h3 id="grades-file">Grades File</h3>
+
+<p>We have provided you with a CSV file that has a list of students and their grades. A CSV file is just a text file with data partitioned by commas and (in this case) newlines. <strong>Note that there may be any number of spaces surrounding the comma.</strong></p>
+
+<p>These grades are not sorted but they are <strong>integers</strong> bound between 0 and 100 (inclusive). For example, the file may look like:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Glenn Hollingsworth,91
+Chris Simpkins, 100
+Thomas Shields, 89
+Bob,55
+Alice,   95
+Eve, 87
+</code></pre></div></div>
+
+<p><strong>Your program may read through the file only once.</strong> Do not scan through the contents of the file multiple times.</p>
+
+<p>The file we provide is just an example of what the file could be. You should test your code with other grades files and other bin sizes.</p>
+
+<h3 id="input">Input</h3>
+
+<p>You will use command-line arguments to inform your program the location of the grades file - <em>see <a href="#expected-output">Expected Output</a> for how to pass the file name in when running the program</em>.</p>
+
+<p>You must allow the user to specify the number of bins in the two following ways:</p>
+
+<ol>
+  <li>Firstly, the number of bins may be specified as an additional command line arg, e.g. <code class="highlighter-rouge">java Histogram grades.csv 5</code></li>
+  <li>If the second command line arg is not present, your program must ask the user for the number of bins at the beginning.</li>
+</ol>
+
+<h2 id="expected-output">Expected Output</h2>
+
+<p>Running the program should look like this:</p>
+
+<blockquote>
+  <p><strong>Note:</strong> <code class="highlighter-rouge">$</code> is the command prompt on Unix. On Windows it will look like <code class="highlighter-rouge">C:&gt;</code></p>
+</blockquote>
+
+<ul>
+  <li>
+    <p>Without the additional command line argument</p>
+
+    <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>java Histogram grades.csv
+How many bins would you like?
+10
+100 - 91 | <span class="o">[][][][][][][][][][][][][]</span>
+ 90 - 81 | <span class="o">[][][][][][][][][][][][][][][][][][][][][][][][][][]</span>
+ 80 - 71 | <span class="o">[][][][][][][][][][][][][][]</span>
+ 70 - 61 | <span class="o">[][][][][][][][][][][][][][][][]</span>
+ 60 - 51 | <span class="o">[][][][][][][][]</span>
+ 50 - 41 | <span class="o">[][][][][]</span>
+ 40 - 31 | <span class="o">[][][][][][][]</span>
+ 30 - 21 | <span class="o">[][]</span>
+ 20 - 11 |
+ 10 -  0 | <span class="o">[][]</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>With the additional command line argument</p>
+
+    <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>java Histogram grades.csv 20
+100 - 96 | <span class="o">[][][][][][][]</span>
+ 95 - 91 | <span class="o">[][][][][][]</span>
+ 90 - 86 | <span class="o">[][][][][][][][][][][][][][][][]</span>
+ 85 - 81 | <span class="o">[][][][][][][][][][]</span>
+ 80 - 76 | <span class="o">[][][][][][][][][][][]</span>
+ 75 - 71 | <span class="o">[][][]</span>
+ 70 - 66 | <span class="o">[][][][][][][][][][]</span>
+ 65 - 61 | <span class="o">[][][][][][]</span>
+ 60 - 56 | <span class="o">[][][][][][]</span>
+ 55 - 51 | <span class="o">[][]</span>
+ 50 - 46 | <span class="o">[][]</span>
+ 45 - 41 | <span class="o">[][][]</span>
+ 40 - 36 | <span class="o">[][][]</span>
+ 35 - 31 | <span class="o">[][][][]</span>
+ 30 - 26 | <span class="o">[]</span>
+ 25 - 21 | <span class="o">[]</span>
+ 20 - 16 |
+ 15 - 11 |
+ 10 -  6 | <span class="o">[]</span>
+  5 -  0 | <span class="o">[]</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<p><strong>IMPORTANT:</strong> The spacing here is very important. You must use the same spacing scheme as our examples or you will lose points. Also make sure the prompt for the number of bins is the same as our example.</p>
+
+<h2 id="allowed-imports">Allowed imports</h2>
+<p>You are allowed to import the following classes and only the following classes:</p>
+<ul>
+  <li>java.util.Scanner;</li>
+  <li>java.io.File;</li>
+  <li>Any Exception</li>
+</ul>
+
+<h2 id="tips">Tips</h2>
+
+<ol>
+  <li>You may assume that you always get valid input.</li>
+  <li>You may assume the text file has valid numbers.</li>
+  <li>101 is a prime number.</li>
+  <li>Try using 101 as the number of bins before you submit.</li>
+  <li>Try using printf.</li>
+  <li>An array is a fixed size data structure; you need to know ahead of time how big it needs to be. How do we do this?</li>
+  <li>You can give interpretations to the indices and contents of an array to arrive at creative solutions to problems. Code smart, not hard.</li>
+  <li>Creating a <code class="highlighter-rouge">Scanner</code> object with a file will throw a checked exception. Don’t worry about what this means — for now, just append <code class="highlighter-rouge">throws Exception</code> to the end of the <code class="highlighter-rouge">main</code> method signature wherein the file is opened.</li>
+</ol>
+
+<h2 id="grading">Grading</h2>
+
+<ul>
+  <li>(10 points) Scans through the entire file given by the first command line argument once</li>
+  <li>(20 points) Correct number of bins</li>
+  <li>(20 points) Correct number of grades in each bin</li>
+  <li>(20 points) Ranges are correct for each bin</li>
+  <li>(10 points) Prompts number of bins only when the second command line argument isn’t given</li>
+  <li>(20 points) Output has correct phrases and spacing</li>
+</ul>
+
+<h2 id="checkstyle">Checkstyle</h2>
+
+<p>For each of your homework assignments we will run checkstyle and deduct one point for every checkstyle error.</p>
+
+<p>For this homework the <strong>checkstyle cap is 0</strong>, meaning you won’t lose points on this assignment due to style errors. This limit will increase with each homework.</p>
+
+<ul>
+  <li>If you encounter trouble running checkstyle, check Piazza for a solution and/or ask a TA as soon as you can!</li>
+  <li>You can run checkstyle on your code by using the jar file found on the course website that includes xml configuration file specifying our checks. To check the style of your code run <code class="highlighter-rouge">java -jar checkstyle-6.2.2.jar *.java</code>.</li>
+  <li>To check your Javadocs run <code class="highlighter-rouge">java -jar checkstyle-6.2.2.jar -j *.java</code>.</li>
+  <li>Note that the command for checking code and the command for checking Javadocs are different. You will have to run both commands to fully test for style errors.</li>
+  <li>Javadoc errors are the same as checkstyle errors, as in each one is worth a single point and they are counted towards the checkstyle cap.</li>
+  <li><strong>You will be responsible for running checkstyle on <em>ALL</em> of your code.</strong></li>
+  <li>Depending on your editor, you might be able to change some settings to make it easier to write style-compliant code. See the <a href="http://cs1331.gatech.edu/customization-tips.html">customization tips</a> page for more information.</li>
+</ul>
+
+<h2 id="collaboration">Collaboration</h2>
+
+<p>When completing homeworks for CS1331 you may talk with other students about:</p>
+
+<ul>
+  <li>What general strategies or algorithms you used to solve problems in the homeworks</li>
+  <li>Parts of the homework specification you are unsure of and need more explanation</li>
+  <li>Online resources that helped you find a solution</li>
+  <li>Key course concepts and Java language features used in your solution</li>
+  <li><strong>You may not discuss, show, or share by other means the specifics of your code, including screenshots, file sharing, or showing someone else the code on your computer, or use code shared by others.</strong></li>
+</ul>
+
+<h3 id="examples-of-approveddisapproved-collaboration">Examples of approved/disapproved collaboration:</h3>
+
+<p><strong>OKAY:</strong> “Hey, I’m really confused on how we are supposed to implement this part of the homework. What strategies/resources did you use to solve it?”</p>
+
+<p><strong>BY NO MEANS OKAY:</strong> “Hey… the homework is due in like 20 minutes… Can I see your code? I <em>promise</em> won’t copy it directly!”</p>
+
+<p>In addition to the above rules, note that it is not allowed to upload your code to any sort of public repository. This could be considered an Honor Code violation, even if it is after the homework is due.</p>
+
+<h2 id="submission">Submission</h2>
+
+<ul>
+  <li>
+    <p>Submit your Java source file as an attachment to the <code class="highlighter-rouge">hw1</code> assignment on Canvas. You can submit as many times as you want, so feel free to submit as you make substantial progress on the homework. We only grade your <strong>last</strong> submission, meaning we will ignore any previous submissions. Please be aware that Canvas will append a number at the end of the file name if multiple submissions are made (e.g. <code class="highlighter-rouge">YourFile-1.java</code>). We will take this into consideration as we grade and remove the appended number of the last submission.</p>
+  </li>
+  <li>
+    <p>As always, late submissions will not be accepted and non-compiling code will be given a score of 0. For this reason, we recommend submitting early and then confirming that you submitted ALL of the necessary files by re-downloading your file(s) and compiling/running them.</p>
+  </li>
+</ul>
+
+<h2 id="have-fun">Have fun!</h2>
+
+      </div>
+
+  <!-- Bootstrap core JavaScript
+  ================================================== -->
+  <!-- Placed at the end of the document so the pages load faster -->
+  <script src="../../../js/bootstrap.min.js"></script>
+  </body>
+  </html>

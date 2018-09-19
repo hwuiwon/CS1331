@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Homework 0</title>
+  <meta name="viewport" content="width=device-width">
+
+  <!-- syntax highlighting CSS -->
+  <link rel="stylesheet" href="../../../css/syntax.css">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="../../../css/main.css">
+
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="../../../css/bootstrap.min.css">
+
+  <!-- Custom styles for this template -->
+  <link href="css/navbar-fixed-top.css" rel="stylesheet">
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+      <![endif]-->
+
+       <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+    </head>
+    <body>
+
+      <div class="container">
+      <h1 id="homework-0">Homework 0</h1>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>This assignment gets you started with the basic tools you will need to complete all of your homework projects.  This project will:</p>
+
+<ul>
+  <li>Ensure that you have correctly installed the JDK (Java Development Kit)</li>
+  <li>Give you practice using a text editor to write Java programs</li>
+  <li>Give you practice compiling and running Java programs</li>
+  <li>Give you practice identifying and locating an error</li>
+  <li>Show you a bit of command line fun</li>
+</ul>
+
+<p><strong>IMPORTANT: We do not use integrated development environments (IDEs) in this class. You must use the command line and a text editor to edit, compile, and debug your Java code.</strong></p>
+
+<h2 id="problem-description">Problem Description</h2>
+
+<p>You are a CS 1331 student who needs to install the JDK, configure it for command line use, and learn how to use a programmer’s text editor to create and edit Java source code.</p>
+
+<h2 id="solution-description">Solution Description</h2>
+
+<h3 id="setting-up-your-computer">Setting Up Your Computer</h3>
+
+<ol>
+  <li>Download and install the JDK on your computer using <a href="https://cs1331.gitlab.io/install-java.html">our installation instructions</a> or <a href="http://docs.oracle.com/javase/8/docs/technotes/guides/install/install_overview.html">Oracle’s installation instructions</a></li>
+  <li>Download and install a programmer’s text editor.  You may end up trying out several over the course of the semester before you settle on one.  See our <a href="https://cs1331.gitlab.io/text-editors.html">guide to text editors</a>.</li>
+  <li>Create a directory for your CS 1331 coursework somewhere on your hard disk; we suggest <code class="highlighter-rouge">cs1331</code>.
+    <ul>
+      <li>You can do this on the command line by navigating to the directory you want to contain is the cs1331 folder (using the <code class="highlighter-rouge">cd</code> command).</li>
+      <li>To create the folder use the command <code class="highlighter-rouge">mkdir cs1331</code>.</li>
+      <li>Enter the new folder by using the command <code class="highlighter-rouge">cd cs1331</code>.</li>
+      <li>Note: avoid putting spaces in file and directory names, since doing so complicates the use of some command line tools.</li>
+    </ul>
+  </li>
+  <li>Create a subdirectory of your <code class="highlighter-rouge">cs1331</code> directory named <code class="highlighter-rouge">hw0</code>.</li>
+  <li>Download <a href="Schools.java">Schools.java</a> to your <code class="highlighter-rouge">hw0</code> directory.</li>
+  <li>
+    <p>On the command line, make sure you are in the <code class="highlighter-rouge">hw0</code> folder. Enter these commands (remember that ‘$’ is the shell prompt (something like ‘C:&gt;’ on Windows) – don’t type the shell prompt character(s)):</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ javac -version &gt; hw0-output.txt
+$ java -version 2&gt;&gt; hw0-output.txt
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<p>Please note what is happening here:</p>
+
+<p><code class="highlighter-rouge">&gt;</code> redirects the standard output of a program.  <code class="highlighter-rouge">2&gt;</code> redirects <code class="highlighter-rouge">stderr</code>, which is used for diagnostics (such as version strings).  The first line creates the <code class="highlighter-rouge">hw0-output.txt</code> file, and the second line (with the extra <code class="highlighter-rouge">&gt;</code>) adds more text to the file. Here is a <a href="http://www.jstorimer.com/blogs/workingwithcode/7766119-when-to-use-stderr-instead-of-stdout">nice discussion</a> of the file descriptors <code class="highlighter-rouge">stdin</code>, <code class="highlighter-rouge">stdout</code> and <code class="highlighter-rouge">stderr</code>.</p>
+
+<p>What this means is that <code class="highlighter-rouge">&gt;</code> (or <code class="highlighter-rouge">2&gt;</code>) will overwrite the file, so if you go back to repeat the first step, you’ll need to repeat all the other steps as well.</p>
+
+<h3 id="your-first-java-program">Your First Java Program</h3>
+
+<ol>
+  <li>
+    <p>Open your text editor and create a file in your newly created <code class="highlighter-rouge">hw0</code> directory named <code class="highlighter-rouge">NimblyBimbly.java</code> and enter the following Java program:</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> public class NimblyBimbly {
+     public static void main(String[] args) {
+         for (int i = 0; i &lt; 9; i++) {
+             System.out.print("\u004D\u0065\u006F\u0077 ");
+         }
+         System.out.println("...");
+         System.out.println("\u004D\u0065\u006F\u0077\u0021");
+     }
+ }
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>On the command line, go to the directory containing your newly created <code class="highlighter-rouge">NimblyBimbly.java</code> file and enter <code class="highlighter-rouge">javac NimblyBimbly.java</code>. Do a directory listing using the command <code class="highlighter-rouge">ls</code> on Mac and Linux or <code class="highlighter-rouge">dir</code> on Windows; you should see a file called <code class="highlighter-rouge">NimblyBimbly.class</code> that contains the compiled bytecode of your <code class="highlighter-rouge">NimblyBimbly</code> program.  These commands should look like this:</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> Mac / Linux:
+
+ $ javac NimblyBimbly.java
+ $ ls
+ NimblyBimbly.class NimblyBimbly.java hw0-output.txt ...
+
+ Windows:
+
+ C:\...\cs1331\hw0&gt; javac NimblyBimbly.java
+ C:\...\cs1331\hw0&gt; dir
+ NimblyBimbly.class NimblyBimbly.java hw0-output.txt ...
+</code></pre></div>    </div>
+  </li>
+  <li>Now enter <code class="highlighter-rouge">java NimblyBimbly</code> to run the program and see its output on the command line.</li>
+  <li>
+    <p>Add the output of your program to <code class="highlighter-rouge">hw0-output.txt</code> by running</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   java NimblyBimbly &gt;&gt; hw0-output.txt
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<h3 id="oh-no-an-error">Oh no. An Error</h3>
+
+<ol>
+  <li>We have provided a file (<code class="highlighter-rouge">Schools.java</code>) for you that contains some sort of error.</li>
+  <li>Attempt to compile and run <code class="highlighter-rouge">Schools.java</code> (using <code class="highlighter-rouge">javac</code> and <code class="highlighter-rouge">java</code>).</li>
+  <li>At some point during this process you will encounter an error. Read this error carefully and determine where in <code class="highlighter-rouge">Schools.java</code> the error originated. That is, identify which line caused the error. It’s alright if you don’t understand what the error means or how to fix it, but do your best to reason through it and think about it. You will encounter lots of errors as you work through homework for this class, so it’s important that you learn early how to decipher the error messages.</li>
+  <li>Finally, report your findings. Open up the <code class="highlighter-rouge">hw0-output.txt</code> file from before in your text editor. At the bottom, add two lines.
+    <ol>
+      <li>The first line should say when the error occurred - that is, during compilation or during running.</li>
+      <li>On the second line, first put the number of the line causing the error. Then, copy the line itself.</li>
+    </ol>
+  </li>
+</ol>
+
+<p>For example, if you compiled the program successfully, the error happened when you ran it, and line 2 caused
+the error, you would add</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    runtime
+    2. public static void main(String[] args) {
+</code></pre></div></div>
+
+<p>to the file. Be sure to follow the instructions – no extra blank lines, capitalization (or lack of capitalization) as modeled above, etc. Get used to being pedantic about instructions. Computers are nitpicky.</p>
+
+<h2 id="turn-in-procedure">Turn-in Procedure</h2>
+
+<p>Submit your <code class="highlighter-rouge">hw0-output.txt</code> file on Canvas as an attachment.  When you’re ready, double-check that you have submitted and not just saved a draft.</p>
+
+<h2 id="verify-the-success-of-your-submission-to-canvas">Verify the Success of Your Submission to Canvas</h2>
+
+<p>Practice safe submission! Verify that your HW files were truly submitted correctly, the upload was successful, and that your program runs with no syntax or runtime errors. It is solely your responsibility to turn in your homework and practice this safe submission safeguard.
+<strong>NOTE</strong>: Unlike TSquare, Canvas will not send an email indicating that your assignment has been submitted successfully. Follow the steps outlined below to ensure you have submitted correctly.</p>
+<ul>
+  <li>After submitting the files to Canvas, return to the Assignment menu option and this homework. It should show the submitted files.</li>
+  <li>Download copies of your submitted files from the Canvas Assignment page placing them in a new folder.</li>
+  <li>Re-run and test the files you downloaded from Canvas to make sure it’s what you expect.</li>
+  <li>
+    <p>This procedure helps guard against a few things.</p>
+
+    <ul>
+      <li>It helps ensure that you turn in the correct files.</li>
+      <li>It helps you realize if you omit a file or files. Missing files will not be given any credit, and non-compiling/non-running homework solutions will receive few to zero points. Also recall that late homework will not be accepted regardless of excuse. Treat the due date with respect.  Do not wait until the last minute!
+(If you do discover that you omitted a file, submit all of your files again, not just the missing one.)</li>
+      <li>Helps find syntax errors or runtime errors that you may have added after you last tested your code.</li>
+    </ul>
+  </li>
+</ul>
+
+      </div>
+
+  <!-- Bootstrap core JavaScript
+  ================================================== -->
+  <!-- Placed at the end of the document so the pages load faster -->
+  <script src="../../../js/bootstrap.min.js"></script>
+  </body>
+  </html>

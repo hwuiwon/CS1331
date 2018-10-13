@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>HW4 - Evil Chipotle</title>
+  <meta name="viewport" content="width=device-width">
+
+  <!-- syntax highlighting CSS -->
+  <link rel="stylesheet" href="../../../css/syntax.css">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="../../../css/main.css">
+
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="../../../css/bootstrap.min.css">
+
+  <!-- Custom styles for this template -->
+  <link href="css/navbar-fixed-top.css" rel="stylesheet">
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+      <![endif]-->
+
+       <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+    </head>
+    <body>
+
+      <div class="container">
+      <h1 id="doctor-cs-and-the-ais">Doctor CS and the AIs</h1>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>(If this comic book-esque backstory is unimportant to you, simply ignore it and go straight to the <a href="#solution-description">solution description</a>.)</p>
+
+<p>The world-famous hero, the Doctor CS, was checking his numerous emails one day when suddenly he gets a call from his sidekick Burdell Boy warning him of a surprise attack from his arch nemesis Dr. Chipotle. He needs your help using his programming superpowers to create AIs to stop the villain’s highly destructive guac cannon from destroying Georgia Tech before it’s too late! While you’re there, you might as well get some revenge on Dr. Chipotle as well. You know, for the good of humanity.</p>
+
+<h2 id="problem-description">Problem Description</h2>
+
+<p>Write five classes, AI, RandomAI, RogueAI, DoctorCS, and Coordinates to help our hero pull off his perilous plan. The AI class and by extension, its subclasses (RandomAI and RogueAI), have some important information we need in order to get revenge on our sworn enemy, including the location of Dr. Chipotle’s secret lair. Once you get this information, you can change the cannon to attack Dr. Chipotle’s lair instead of Doctor CS’s HQ. However, Dr. Chipotle anticipated the counterattack and has installed a security measure into his cannons: a self-destruct sequence virus. Should the virus activate, any AI trying to stop the cannon will be destroyed, and the cannon will fire anyways at its original target (and Georgia Tech gets guac’ed). If it is possible without triggering the self destruct, you should change the cannon target to Dr. Chipotle’s lair. If it is not possible, then Dr. Chipotle will have succeeded in his plan to destroy Georgia Tech.</p>
+
+<p><strong>TL;DR</strong> (Too Long; Didn’t Read) Dr. Chipotle is trying to destroy Georgia Tech, and you have to make some classes that use the features of object-oriented programming to stop him.</p>
+
+<h2 id="solution-description">Solution Description</h2>
+
+<p>Complete the AI, RandomAI, RogueAI, DoctorCS, and Coordinates classes following the instructions below.
+<strong>Note</strong>: When creating the specified getter and setter methods for each class, use the naming convention taught in class, e.g. getFirewallProtection() and setSecretIdentity().</p>
+
+<p>For all of the classes you write, <strong>Don’t add any unneeded fields</strong>.</p>
+
+<p>Don’t forget to answer the <a href="#analysis">Analysis</a> questions.</p>
+
+<h2 id="coordinatesjava">Coordinates.java</h2>
+
+<p>This class should be <strong>concrete</strong>.</p>
+
+<h3 id="fields">Fields</h3>
+
+<p>This class has the following private fields, and <strong>associated getter methods</strong>:</p>
+
+<ul>
+  <li>
+    <p><code class="highlighter-rouge">final double latitude</code>. This constant double represents the latitude in a set of coordinates.</p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">final double longitude</code>. This constant double represents the longitude in a set of coordinates.</p>
+  </li>
+</ul>
+
+<h3 id="constructor">Constructor</h3>
+
+<p>This class has the following constructor:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">public Coordinates(double latitude, double longitude)</code>. This constructor takes in two doubles that should be assigned to <code class="highlighter-rouge">latitude</code> and <code class="highlighter-rouge">longitude</code> respectively.</li>
+</ul>
+
+<h3 id="methods">Methods</h3>
+
+<p>This class has the following public methods:</p>
+
+<ul>
+  <li>
+    <p><code class="highlighter-rouge">boolean equals(Object other)</code>. This returns a boolean representing whether another object is logically equivalent to this instance of Coordinates. For two Coordinates instances to be equivalent, their latitude and longitude must be equal. <strong>Implement this method as you have been taught in lecture.</strong></p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">String toString()</code>. This returns the String representation of this Coordinate object’s stored information in the following format:
+<code class="highlighter-rouge">"latitude: (latitude), longitude: (longitude)"</code></p>
+
+    <p>For example, a possible output of the toString() method could look like this:
+<code class="highlighter-rouge">"latitude: 12.34, longitude 56.78"</code></p>
+  </li>
+  <li>
+    <p>Getters for both <code class="highlighter-rouge">latitude</code> and <code class="highlighter-rouge">longitude</code>.</p>
+  </li>
+</ul>
+
+<h2 id="aijava">AI.java</h2>
+
+<p>The foundation for any AI Doctor CS creates.
+This class should be made <strong>abstract</strong>.</p>
+
+<h3 id="fields-1">Fields</h3>
+
+<p>This class has the following private fields, <strong>and associated getter methods</strong> for them:</p>
+
+<ul>
+  <li>
+    <p><code class="highlighter-rouge">boolean destructed</code>. A boolean that represents whether the AI has self-destructed or not. Default value is false.</p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">Coordinates cannonTarget</code>. An instance of Coordinates that represents the location at which Dr. Chipotle’s guacamole cannon is aimed.</p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">Coordinates secretHQ</code>. An instance of Coordinates that represents the location of Dr. Chipotle’s secret headquarters.</p>
+  </li>
+</ul>
+
+<h3 id="constructor-1">Constructor</h3>
+
+<p>This class will have the following constructor:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">public AI(Coordinates cannonTarget, Coordinates secretHQ)</code>. This constructor should assign the arguments to the <code class="highlighter-rouge">cannonTarget</code> instance variable and <code class="highlighter-rouge">secretHQ</code> instance variable respectively.</li>
+</ul>
+
+<h3 id="methods-1">Methods</h3>
+
+<p>This class will have the following methods alongside the getters specified in the Fields section:</p>
+
+<ul>
+  <li>
+    <p><code class="highlighter-rouge">public boolean swapCannonTarget(Coordinates newCoords)</code>. This method will attempt to change the <code class="highlighter-rouge">cannonTarget</code> instance variable. The following boolean checks determine if <code class="highlighter-rouge">cannonTarget</code> is changed:</p>
+
+    <ul>
+      <li>
+        <p>If both <code class="highlighter-rouge">destructed</code> is false and <code class="highlighter-rouge">newCoords</code> does not equal <code class="highlighter-rouge">cannonTarget</code> then:</p>
+
+        <ul>
+          <li>
+            <p>If <code class="highlighter-rouge">shouldSwapCannonTarget()</code> returns true, then <code class="highlighter-rouge">cannonTarget</code> should be set equal to <code class="highlighter-rouge">newCoords</code>. Return true after the assignment.</p>
+          </li>
+          <li>
+            <p>Else if <code class="highlighter-rouge">shouldSelfDestruct()</code> returns true, invoke the <code class="highlighter-rouge">selfDestruct()</code> method then return false.</p>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <p>In any other case, the method should return false.</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">public abstract boolean shouldSwapCannonTarget()</code>. This method will be implemented in the subclasses of <code class="highlighter-rouge">AI</code>. Do not make this method concrete or you will not get credit for it.</p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">public void selfDestruct()</code>. This method functions as a setter for the <code class="highlighter-rouge">destructed</code> instance variable, but it will only set <code class="highlighter-rouge">destructed</code> to true whenever invoked.</p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">public abstract boolean shouldSelfDestruct()</code>. This method will be implemented in the subclasses of <code class="highlighter-rouge">AI</code>. Do not make this method concrete or you will not get credit for it.</p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">public String toString()</code>. This method returns a String representation of the AI object which should have the following structure:</p>
+
+    <p><code class="highlighter-rouge">"Dr. Chipotle’s guacamole cannon is currently pointed at (cannonTarget)."</code>
+(<strong>Properly reuse code or you can lose points</strong>)</p>
+
+    <p>For example, a possible output of the toString() method could look like this:</p>
+
+    <p><code class="highlighter-rouge">"Dr. Chipotle's guacamole cannon is currently pointed at latitude: 13.31, longitude: 13.01."</code></p>
+  </li>
+</ul>
+
+<h2 id="randomaijava">RandomAI.java</h2>
+
+<p>RandomAI extends AI but isn’t very smart. When you tell it to swapCannonTarget(), there’s a 50% chance that it will, and a 50% that it won’t. If it doesn’t swap the target, there’s a 50% chance that it will self destruct.
+This class should be <strong>concrete</strong>.</p>
+
+<h3 id="fields-2">Fields</h3>
+
+<p>This class has the following private static final field:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">Random randomizer</code>. This is an instance of the <code class="highlighter-rouge">Random</code> class. <code class="highlighter-rouge">RandomAI</code> will use the power of indeterminate, psuedo-randomly generated numbers to determine if the weather today will be cloudy with a chance of guacamole (i.e. use randomizer to make the 50% chance decisions).</li>
+</ul>
+
+<h3 id="constructor-2">Constructor</h3>
+
+<p>This class will have the following constructor:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">public RandomAI(Coordinates cannonTarget, Coordinates secretHQ)</code>. Assign both Coordinates instances to their respective instance variables. (<strong>Hint</strong>: Where are the instance variables <code class="highlighter-rouge">cannonTarget</code> and <code class="highlighter-rouge">secretHQ</code> located?)</li>
+</ul>
+
+<h3 id="methods-2">Methods</h3>
+
+<p>This class will have the following methods:</p>
+
+<ul>
+  <li>
+    <p><code class="highlighter-rouge">public boolean shouldSwapCannonTarget()</code>. This method should override the abstract method found in <code class="highlighter-rouge">AI.java</code>. It should return true 50% of the time.</p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">public boolean shouldSelfDestruct()</code>. This method should override the abstract method found in <code class="highlighter-rouge">AI.java</code>. It should also return true 50% of the time.</p>
+  </li>
+</ul>
+
+<h2 id="rogueaijava">RogueAI.java</h2>
+
+<p>RogueAI extends AI and can detect firewalls in the guac cannon’s software as well as alert levels. RogueAI can lower the firewalls, but that increases the alert level as well. If the alert level exceeds the maximum alert level, then the self-destruct virus will be activated, and that instance of RogueAI will be destroyed.
+This class should be <strong>concrete</strong>.</p>
+
+<h3 id="fields-3">Fields</h3>
+
+<p>This class has the following private fields <strong>and associated getter methods</strong> for them:</p>
+
+<ul>
+  <li>
+    <p><code class="highlighter-rouge">int firewallProtection</code>. This is an int that represents security level of the firewall. Doctor CS must first lower it to <code class="highlighter-rouge">0</code> in order to access the secret info.</p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">int alertLevel</code>. This is an int that represents the current alert level of the computer. It will raise every single time Doctor CS tries to either lower the firewall or swap the guac cannon’s target. More on that later.</p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">final int maxAlert</code>. This is a constant int variable that represents the alert level at which the computer self destructs. If <code class="highlighter-rouge">alertLevel</code> goes above this threshold, it will be impossible for Doctor CS to save the day.</p>
+  </li>
+</ul>
+
+<p>Be sure to make the instance fields <strong>private</strong> so that only your methods within the class have access to them!</p>
+
+<h3 id="constructor-3">Constructor</h3>
+
+<p>This class will have the following constructors:</p>
+
+<ul>
+  <li>
+    <p><code class="highlighter-rouge">public RogueAI(int firewallProtection, int alertLevel, int maxAlert, Coordinates cannonTarget, Coordinates secretHQ)</code>. This constructor takes in three ints and two Coordinates objects and assigns them to their corresponding instance fields. (<strong>Hint</strong>: Where is the instance variable <code class="highlighter-rouge">cannonTarget</code> located?)</p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">public RogueAI(int firewallProtection, int maxAlert, Coordinates cannonTarget, Coordinates secretHQ)</code>. This constructor takes in two ints and two Coordinates objects and assigns them to their corresponding instance fields. It also sets <code class="highlighter-rouge">alertLevel</code> to 0.(<strong>Hint</strong>: Where is the instance variable <code class="highlighter-rouge">cannonTarget</code> located?)</p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">public RogueAI(int firewallProtection, Coordinates cannonTarget, Coordinates secretHQ)</code>. This constructor takes in one int and two Coordinates objects and assigns them to their corresponding instance fields. It also sets <code class="highlighter-rouge">alertLevel</code> to 0 and <code class="highlighter-rouge">maxAlert</code> to 10.(<strong>Hint</strong>: Where is the instance variable <code class="highlighter-rouge">cannonTarget</code> located?)</p>
+  </li>
+</ul>
+
+<p>Use constructor delegation! For this homework, make constructors with fewer arguments delegate to constructors with more arguments.</p>
+
+<h3 id="methods-3">Methods</h3>
+
+<p>This class has the following methods alongside the getters specified in the Fields section:</p>
+
+<ul>
+  <li>
+    <p><code class="highlighter-rouge">public void lowerFirewall()</code>. This method should decrement <code class="highlighter-rouge">firewallProtection</code> by 2, and increment <code class="highlighter-rouge">alertLevel</code> by 1 when invoked.</p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">public boolean shouldSwapCannonTarget()</code>. This method should override the abstract method found in <code class="highlighter-rouge">AI.java</code>. It should return whether or not <code class="highlighter-rouge">firewallProtection</code> is less than or equal to 0.</p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">public boolean shouldSelfDestruct()</code>. This method should override the abstract method found in <code class="highlighter-rouge">AI.java</code>. It should return whether or not <code class="highlighter-rouge">alertLevel</code> is greater than or equal to <code class="highlighter-rouge">maxAlert</code>.</p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">public String toString()</code>. This method returns the String representation of the RogueAI’s fields in the following format:</p>
+
+    <p><code class="highlighter-rouge">"Dr. Chipotle’s guacamole cannon is currently pointed at (cannonTarget), and is at alert level (alertLevel) with firewall protection (firewallProtection)."</code>
+<strong>Properly reuse code here or you could lose points</strong></p>
+
+    <p>For example, a possible output of the toString() method could look like this:</p>
+
+    <p><code class="highlighter-rouge">"Dr. Chipotle's guacamole cannon is currently pointed at latitude: 13.31, longitude: 13.01, and is at alert level 10 with firewall protection 5."</code></p>
+  </li>
+</ul>
+
+<h2 id="doctorcsjava">DoctorCS.java</h2>
+
+<p>Our hero, Doctor CS, gets his own class. He will have an AI at his disposal to stop Dr. Guacamole’s evil plan, and has a secret identity that no person, aside from himself, knows about.
+This class should be <strong>concrete</strong>.</p>
+
+<h3 id="fields-4">Fields</h3>
+
+<p>This class has the following private fields, <strong>and associated getter and setter methods</strong> for them unless otherwise specified:</p>
+
+<ul>
+  <li>
+    <p><code class="highlighter-rouge">AI ai</code>. This is the AI object upon which you can invoke the various methods to save the day. <strong>Do not create a setter method for this field</strong>.</p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">String secretIdentity</code>. This contains the Doctor CS’s hidden identity. This <strong>should not be publicly accessible</strong>, and <strong>it should be immutable</strong>. (<strong>Hint</strong>: Based on the description, does this need a setter? Does this need a getter?)</p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">int jlaid</code>. This is an integer representation of the Doctor CS’s Justice League of America ID. It should be publicly accessible, but like his secret identity, this should also be <strong>immutable</strong>.</p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">boolean safe</code>. <strong>Do not write a getter for this variable.</strong> This is a boolean that represents whether the threat of Dr. Chipotle has been alleviated. <strong>This instance variable should not be changed outside of the <code class="highlighter-rouge">DoctorCS</code> class.</strong> (Does this need a setter?)</p>
+  </li>
+</ul>
+
+<h3 id="constructor-4">Constructor</h3>
+
+<p>This class has the following constructor:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">public DoctorCS(AI ai, String secretIdentity, int jlaid)</code>. This constructor takes in an AI object and assigns it to <code class="highlighter-rouge">ai</code>, a String that is assigned to <code class="highlighter-rouge">secretIdentity</code>, and an int and stores it in <code class="highlighter-rouge">jlaid</code>. It should also initialize <code class="highlighter-rouge">safe</code> to be false.</li>
+</ul>
+
+<h3 id="methods-4">Methods</h3>
+
+<p>This class has the following public methods:</p>
+
+<ul>
+  <li>
+    <p><code class="highlighter-rouge">void saveTheDay()</code>. This method functions as a conditional setter for the <code class="highlighter-rouge">safe</code> instance variable. If <code class="highlighter-rouge">ai</code> is an instance of a <code class="highlighter-rouge">RogueAI</code>, then continuously invoke the <code class="highlighter-rouge">lowerFirewall()</code> method while <code class="highlighter-rouge">firewallProtection</code> is greater than 0. After that is done or if <code class="highlighter-rouge">ai</code> is simply a <code class="highlighter-rouge">RandomAI</code>, call <code class="highlighter-rouge">swapCannonTarget()</code> on the <code class="highlighter-rouge">ai</code> and pass in the <code class="highlighter-rouge">ai</code>’s <code class="highlighter-rouge">secretHQ</code> field. The return value should be assigned to <code class="highlighter-rouge">safe</code>.</p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">String getStatus()</code>. This method will return a different String depending on the value of <code class="highlighter-rouge">safe</code> and the value of <code class="highlighter-rouge">destructed</code> in the instance <code class="highlighter-rouge">ai</code>.</p>
+
+    <p>If <code class="highlighter-rouge">safe</code> is true, then return the following: “Doctor CS has saved the day!”</p>
+
+    <p>If <code class="highlighter-rouge">safe</code> is false and the value of <code class="highlighter-rouge">destructed</code> in the <code class="highlighter-rouge">ai</code> instance is true, then return the following: “Dr. Chipotle has succeeded in his plan…”</p>
+
+    <p>Otherwise, return the following: “Georgia Tech is still in danger!”</p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">String toString()</code>. This returns the String representation of Doctor CS’s information in the following format:
+<code class="highlighter-rouge">"(secretIdentity) aka Doctor CS with JLAID: (jlaid)"</code></p>
+
+    <p>For example, a possible output of the toString() method could look like this:
+<code class="highlighter-rouge">"Robert Paulson aka Doctor CS with JLAID: 12345678"</code></p>
+  </li>
+  <li>
+    <p>Getters and setters for all fields (unless specified otherwise).</p>
+  </li>
+</ul>
+
+<h2 id="analysis">Analysis</h2>
+
+<p><code class="highlighter-rouge">DoctorCS</code>’s <code class="highlighter-rouge">saveTheDay</code> method forces you to use <code class="highlighter-rouge">instanceof</code>. Answer the following questions as a comment at the top of DoctorCS.java:</p>
+<ol>
+  <li>Why is this not good style?</li>
+  <li>What changes could we make to AI and it’s subclasses to avoid using instanceof?</li>
+</ol>
+
+<p><strong>Use no more than 100 words in total to answer both questions.</strong>
+<a href="https://wordcounter.net/">Word counter</a></p>
+
+<h2 id="grading">Grading</h2>
+
+<p>General Points (35 points)</p>
+
+<ul>
+  <li>[9] Properly declaring variables for every class. (-1 per missing field)</li>
+  <li>[5] <code class="highlighter-rouge">AI.java</code> is <strong>abstract</strong>, and all other classes besides <code class="highlighter-rouge">AI.java</code> are <strong>concrete</strong>.</li>
+  <li>[3 x 7] Constructors for each class.</li>
+</ul>
+
+<p><code class="highlighter-rouge">AI.java</code> (15 points)</p>
+
+<ul>
+  <li>[5] <code class="highlighter-rouge">AI.swapCannonTarget(Coordinates newCoords)</code>.</li>
+  <li>[5] Getters and setters for <code class="highlighter-rouge">AI.java</code>.</li>
+  <li>[1] <code class="highlighter-rouge">AI.selfDestruct()</code>.</li>
+  <li>[2] <code class="highlighter-rouge">AI.toString()</code>.</li>
+  <li>[2] <code class="highlighter-rouge">shouldSwapCannonTarget()</code> and <code class="highlighter-rouge">shouldSelfDestruct()</code>.</li>
+</ul>
+
+<p><code class="highlighter-rouge">RandomAI.java</code> (4 points)</p>
+
+<ul>
+  <li>[4] Properly overriden and functioning <code class="highlighter-rouge">shouldSwapCannonTarget()</code> and <code class="highlighter-rouge">shouldSelfDestruct()</code> methods.</li>
+</ul>
+
+<p><code class="highlighter-rouge">RogueAI.java</code> (16 points)</p>
+
+<ul>
+  <li>[2] <code class="highlighter-rouge">RogueAI.lowerFirewall()</code>.</li>
+  <li>[4] <code class="highlighter-rouge">RogueAI.toString()</code>.</li>
+  <li>[6] Getter methods for <code class="highlighter-rouge">RogueAI.java</code>.</li>
+  <li>[4] Properly overriden and functioning <code class="highlighter-rouge">shouldSwapCannonTarget()</code> and <code class="highlighter-rouge">shouldSelfDestruct()</code> methods.</li>
+</ul>
+
+<p><code class="highlighter-rouge">DoctorCS.java</code> (17 points)</p>
+
+<ul>
+  <li>[8] <code class="highlighter-rouge">DoctorCS.saveTheDay()</code>.</li>
+  <li>[3] <code class="highlighter-rouge">DoctorCS.getStatus()</code>.</li>
+  <li>[4] Getter methods for <code class="highlighter-rouge">DoctorCS.java</code>.</li>
+  <li>[2] <code class="highlighter-rouge">DoctorCS.toString()</code>.</li>
+</ul>
+
+<p><code class="highlighter-rouge">Coordinates.java</code> (13 points)</p>
+
+<ul>
+  <li>[8] The equals method for <code class="highlighter-rouge">Coordinates.java</code>.</li>
+  <li>[4] Getter methods for <code class="highlighter-rouge">Coordinates.java</code></li>
+  <li>[1] toString() method for <code class="highlighter-rouge">Coordinates.java</code>.</li>
+</ul>
+
+<p>Analysis (10 bonus points)</p>
+
+<h2 id="running-and-testing">Running and Testing</h2>
+
+<p><a href="CrimeSimulator.java">CrimeSimulator.java</a> has been provided for you. It creates an instance of a DoctorCS, RogueAI, and Coordinates and invokes various methods on each. You can run the main method to test the functionality of your code. The tester may not cover all cases described above, so <strong>be sure to write your own code to test your classes and methods</strong>.</p>
+
+<p>Here is the expected output from CrimeSimulator:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Chris Simpkins aka DoctorCS with JLAID: 13310001
+Dr. Chipotle’s guacamole cannon is currently pointed at latitude: 13.31, longitude: 23.16, and is at alert level 0 with firewall protection 10.
+Dr. Chipotle’s guacamole cannon is currently pointed at latitude: 50.00, longitude: 25.50, and is at alert level 5 with firewall protection 0.
+Doctor CS has saved the day!
+false
+</code></pre></div></div>
+
+<h2 id="tips-and-considerations">Tips and Considerations</h2>
+
+<p><strong>Please start as soon as possible!</strong> The earlier you start this assignment, the more time you will have to think and ask questions. If anything seems confusing, read through the entire description and instructions again. As always, feel free to contact your TAs, post on Piazza, or come in for office hours. In addition, here are some tips specific to this homework:</p>
+
+<ul>
+  <li>
+    <p>Don’t be intimidated by how long this homework seems! There isn’t any complicated math to deal with, just a lot of methods that need creating.</p>
+  </li>
+  <li>
+    <p>Start by creating the private fields and associated getter (and setter, if applicable) methods in each class, so you can be guaranteed the easiest points.</p>
+  </li>
+  <li>
+    <p>Next, create the constructors for each of the classes as per the specifications. There shouldn’t be anything in the body of the constructors besides variable initializations/assignments.</p>
+  </li>
+  <li>
+    <p>Most of the DoctorCS.java class’s non-getter and setter methods will be invoking methods from RogueAI.java, so keep that in mind when writing your methods and especially if you want to start testing your code early.</p>
+  </li>
+</ul>
+
+<h2 id="allowed-imports">Allowed imports</h2>
+
+<p>You are allowed to import the following classes and only the following classes:</p>
+
+<ul>
+  <li>java.util.Random</li>
+</ul>
+
+<h2 id="javadocs">Javadocs</h2>
+
+<ul>
+  <li>
+    <p>You will need to write Javadoc comments. Not following the Javadoc requirements will count as checkstyle errors.</p>
+
+    <ul>
+      <li>
+        <p>Every class should have a class level Javadoc that includes <code class="highlighter-rouge">@author &lt;GT Username&gt;</code>.</p>
+      </li>
+      <li>
+        <p>Every method should have a Javadoc explaining what the method does and includes any of the following tags if applicable.</p>
+
+        <ul>
+          <li>
+            <p><code class="highlighter-rouge">@param &lt;parameter name&gt; &lt;brief description of parameter&gt;</code></p>
+          </li>
+          <li>
+            <p><code class="highlighter-rouge">@returns &lt;brief description of what is returned&gt;</code></p>
+          </li>
+          <li>
+            <p><code class="highlighter-rouge">@throws &lt;Exception&gt; &lt;brief explanation of when the given exception is thrown&gt;</code></p>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>See the <a href="https://cs1331.gitlab.io/cs1331-style-guide.html">CS 1331 Style Guide</a> section on Javadoc comments for examples as well as the provided <code class="highlighter-rouge">Driver.java</code> file.</p>
+  </li>
+</ul>
+
+<h2 id="checkstyle">Checkstyle</h2>
+
+<p>You must run checkstyle on your code to check for violations. For each violation the tool finds, you will lose one point on your total grade for this assignment.</p>
+
+<p>For <em>this homework</em>, the <strong>checkstyle cap is 50</strong>, meaning you can lose up to <strong>50</strong> points on this assignment due to style errors. As the semester goes on, this cap will increase with each homework and will eventually go away. <strong>Run checkstyle early, and get in the habit of writing style compliant code the first time</strong>. Don’t wait until 5 minutes before the deadline to find out that you have 100+ violations.</p>
+
+<ul>
+  <li>If you encounter trouble running checkstyle, check Piazza for a solution and/or ask a TA as soon as you can!</li>
+  <li>You can run checkstyle on your code by using the jar file found on the course website that includes xml configuration file specifying our checks. <strong>To check the style of your code run</strong> <code class="highlighter-rouge">java -jar checkstyle-6.2.2.jar *.java</code>.</li>
+  <li><strong>To check your Javadocs run</strong> <code class="highlighter-rouge">java -jar checkstyle-6.2.2.jar -j *.java</code>.</li>
+  <li>Note that the command for checking code and the command for checking Javadocs are different. <strong>You will have to run both commands to fully test for style errors.</strong></li>
+  <li>Javadoc errors are the same as checkstyle errors, as in each one is worth a single point and they are counted towards the checkstyle cap.</li>
+</ul>
+
+<h2 id="collaboration">Collaboration</h2>
+
+<p>When completing homeworks for CS1331 you may talk with other students about:</p>
+
+<ul>
+  <li>What general strategies or algorithms you used to solve problems in the homeworks</li>
+  <li>Parts of the homework you are unsure of and need more explanation</li>
+  <li>Online resources that helped you find a solution</li>
+  <li>Key course concepts and Java language features used in your solution</li>
+</ul>
+
+<p>You may <strong>not</strong> discuss, show, or share by other means the specifics of your code, including screenshots, file sharing, or showing someone else the code on your computer, or use code shared by others.</p>
+
+<p>Examples of approved/disapproved collaboration:</p>
+
+<ul>
+  <li><strong>Approved</strong>: “Hey, I’m really confused on how we are supposed to implement this part of the homework. What strategies/resources did you use to solve it?”</li>
+  <li><strong>Disapproved</strong>: “Yo it’s 10:40 on Thursday… Can I see your code? I won’t copy it directly I promise”</li>
+</ul>
+
+<p>In addition to the above rules, note that it is not allowed to upload your code to any sort of public repository. This could be considered an Honor Code violation, even if it is after the homework is due.</p>
+
+<h2 id="submission">Submission</h2>
+
+<p>Submit your <code class="highlighter-rouge">DoctorCS.java</code>, <code class="highlighter-rouge">AI.java</code>, <code class="highlighter-rouge">RandomAI.java</code>, <code class="highlighter-rouge">RogueAI.java</code>, and <code class="highlighter-rouge">Coordinates.java</code> files as attachments to the hw4 assignment on Canvas. Be sure to check Piazza for clarifications and updates before submitting. You can submit as many times as you want, so feel free to submit as you make substantial progress on the homework. We only grade your last submission, meaning we will ignore any previous submissions. <strong>Submit every file every time you resubmit</strong>.</p>
+
+<p>As always, <strong>late submissions will not be accepted and non-compiling code will be given a score of 0</strong>. For this reason, we recommend submitting early and then confirming that you submitted ALL of the necessary files by re-downloading your file(s) and compiling/running them.</p>
+
+<p><strong>Good luck, and have fun!</strong></p>
+
+      </div>
+
+  <!-- Bootstrap core JavaScript
+  ================================================== -->
+  <!-- Placed at the end of the document so the pages load faster -->
+  <script src="../../../js/bootstrap.min.js"></script>
+  </body>
+  </html>

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>HW5 - List</title>
+  <meta name="viewport" content="width=device-width">
+
+  <!-- syntax highlighting CSS -->
+  <link rel="stylesheet" href="../../../css/syntax.css">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="../../../css/main.css">
+
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="../../../css/bootstrap.min.css">
+
+  <!-- Custom styles for this template -->
+  <link href="css/navbar-fixed-top.css" rel="stylesheet">
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+      <![endif]-->
+
+       <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+    </head>
+    <body>
+
+      <div class="container">
+      <h1 id="list">List</h1>
+
+<h2 id="introduction">Introduction</h2>
+<p>In this homework assignment, you will be exploring the implementation of interfaces. You can think of an interface as a skeleton for a type of object; interfaces give method signatures that must be implemented in any class, which implements the interface. Click this link to learn more about interfaces: <a href="https://docs.oracle.com/javase/tutorial/java/IandI/createinterface.html">https://docs.oracle.com/javase/tutorial/java/IandI/createinterface.html</a>
+Remember to refer to the Java API if you are struggling with the concept of interfaces:  <a href="https://docs.oracle.com/javase/10/docs/api/overview-summary.html">https://docs.oracle.com/javase/10/docs/api/overview-summary.html</a></p>
+
+<h2 id="problem-description">Problem Description</h2>
+<p>You will be implementing the methods from the interface, <code class="highlighter-rouge">List</code>, into the concrete class, <code class="highlighter-rouge">MyList</code>. You will also be using <code class="highlighter-rouge">IllegalArgumentException</code> and <code class="highlighter-rouge">IndexOutOfBoundsException</code>.
+Make sure to check Piazza for updates. There will not be announcements about clarifications on homeworks.</p>
+
+<h2 id="list-1">List</h2>
+<p>This interface is already written and provided for you: <a href="List.java">List.java</a></p>
+
+<p>It has the following fields:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">int INITIAL_CAPACITY</code> Represents the default initial capacity of our list.</li>
+</ul>
+
+<p>It has the following methods:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">void add(E e)</code> Adds the passed-in element to the last position in the list and throws an <code class="highlighter-rouge">IllegalArgumentException</code> if e is null. Consider how you can store this list and the possible problems to account for when using this.</li>
+  <li><code class="highlighter-rouge">E get(int index)</code> Selects an element from the given index in the list.</li>
+  <li><code class="highlighter-rouge">void replace(E e, E replaceWith)</code> Replaces all instances of <code class="highlighter-rouge">e</code> with <code class="highlighter-rouge">replaceWith</code> in the list. This method throws an <code class="highlighter-rouge">IllegalArgumentException</code> if either of the passed-in elements are <code class="highlighter-rouge">null</code>.</li>
+  <li><code class="highlighter-rouge">int remove(E e)</code> Removes all instances of <code class="highlighter-rouge">e</code> and returns a count of how many instances were removed. The method throws an <code class="highlighter-rouge">IllegalArgumentException</code> if <code class="highlighter-rouge">e</code> is <code class="highlighter-rouge">null</code>. This method should also be ensuring that null elements are not left in the middle of the list. For example, if there is <code class="highlighter-rouge">{1, 2, 3}</code> and <code class="highlighter-rouge">remove(2)</code> is called then the list should not become <code class="highlighter-rouge">{1, null, 3}</code>.</li>
+  <li><code class="highlighter-rouge">int contains(E e)</code> Checks to see how many instances of <code class="highlighter-rouge">e</code> are in the list and returns this count. The method throws an <code class="highlighter-rouge">IllegalArgumentException</code> if <code class="highlighter-rouge">e</code> is <code class="highlighter-rouge">null</code>.</li>
+  <li><code class="highlighter-rouge">boolean isEmpty()</code> Checks to see if there are any objects in the list. If there is at least one object, then this should return <code class="highlighter-rouge">false</code>. Otherwise, this should return <code class="highlighter-rouge">true</code>.</li>
+  <li><code class="highlighter-rouge">void clear()</code> Should make the entire List empty; all objects are removed from the list.</li>
+  <li><code class="highlighter-rouge">int size()</code> Returns the number of non-null elements in the list.</li>
+  <li><code class="highlighter-rouge">E[] toArray(E[] e)</code>. Returns the array <code class="highlighter-rouge">e</code> that was input. <code class="highlighter-rouge">e</code> should be filled with as many non null elements of the list as it can fit, starting from the beginning of the list (e.g. if <code class="highlighter-rouge">e</code> is length 3 and the list is <code class="highlighter-rouge">{1,2,3,4,5}</code>, <code class="highlighter-rouge">e</code> should be returned as ‘{1,2,3}’). Any extra spots in <code class="highlighter-rouge">e</code> should be set to null.</li>
+</ul>
+
+<h2 id="mylist">MyList</h2>
+<p>Represents a custom array list with generics. Should implement <code class="highlighter-rouge">List</code>. When the add method is called and the backing array is full, double the size of the backing array then add the element.</p>
+
+<p>It has the following instance fields:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">E[] elements</code> The backing array of generic type E</li>
+  <li><code class="highlighter-rouge">int size</code> An int that represents the count of all non-null elements in the array</li>
+</ul>
+
+<p>It has the following constructors:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">MyList()</code> No arg constructor that sets the instance fields.</li>
+  <li><code class="highlighter-rouge">MyList(int capacity)</code> Takes in an int capacity to set the initial capacity of the backing array.</li>
+</ul>
+
+<p>NOTE: Since the class implements <code class="highlighter-rouge">List</code>, it should implement all the methods declared in the interface.</p>
+
+<h2 id="imports">Imports</h2>
+<p>For this homework, you may not import classes, especially those from <code class="highlighter-rouge">java.util</code>. Any imports will result in major points deductions.</p>
+
+<h2 id="grading">Grading</h2>
+<p>This is a tentative rubric and may be changed.</p>
+
+<p><code class="highlighter-rouge">MyList.java</code></p>
+<ul>
+  <li>[10] Properly written constructors for List</li>
+  <li>[5]  Correct instance field names for List</li>
+  <li>[5]  MyList properly implements List</li>
+  <li>[5]  Add method correctly adds valid data to the back of the list</li>
+  <li>[5]  Add method correctly <code class="highlighter-rouge">throws Exception</code> for invalid data</li>
+  <li>[5]  Add method resizes the backing array to twice the current <code class="highlighter-rouge">capacity</code></li>
+  <li>[5]  Get method correctly accesses the value in the list of the given index</li>
+  <li>[5]  Get method throws <code class="highlighter-rouge">IndexOutOfBoundsException</code> if <code class="highlighter-rouge">index</code> is not a valid index in the list</li>
+  <li>[5]  Replace correctly replaces all instances of <code class="highlighter-rouge">e</code> with <code class="highlighter-rouge">replaceWith</code></li>
+  <li>[5]  Replace method throws <code class="highlighter-rouge">IllegalArgumentException</code> if either <code class="highlighter-rouge">e</code> or <code class="highlighter-rouge">replaceWith</code> is  <code class="highlighter-rouge">null</code></li>
+  <li>[5]  Remove correctly removes all instances of <code class="highlighter-rouge">e</code> returning the number of instances removed</li>
+  <li>[5]  Remove method correctly shifts all non-null elements to the front of the backing array after removing</li>
+  <li>[5]  Remove method throws <code class="highlighter-rouge">IllegalArgumentException</code> if <code class="highlighter-rouge">e</code> is  <code class="highlighter-rouge">null</code></li>
+  <li>[5]  Contains correctly removes all instances of <code class="highlighter-rouge">e</code> returning the number of instances found</li>
+  <li>[5]  Contains method throws <code class="highlighter-rouge">IllegalArgumentexception</code> if <code class="highlighter-rouge">e</code> is  <code class="highlighter-rouge">null</code></li>
+  <li>[5]  Valid isEmpty method</li>
+  <li>[5]  Valid clear method</li>
+  <li>[5]  Valid size method</li>
+  <li>[5]  toArray method returns as many non-null elements in the list as it can fit</li>
+</ul>
+
+<h2 id="tips--considerations">Tips &amp; Considerations</h2>
+<ul>
+  <li>Writing a Main class with a main method to test your code would be very useful.</li>
+  <li>Use <code class="highlighter-rouge">toArray()</code> for debugging purposes</li>
+  <li>We should be able to test your code using any input.</li>
+</ul>
+
+<h2 id="javadocs">Javadocs</h2>
+<p>You will need to write Javadoc comments for this homework.</p>
+<ul>
+  <li>
+    <p>Every class should have a class level Javadoc that includes <code class="highlighter-rouge">@author &lt;GT Username&gt;</code>.</p>
+
+    <ul>
+      <li>
+        <p>Every method should have a Javadoc explaining what the method does and includes any of the following tags if applicable.</p>
+
+        <ul>
+          <li>
+            <p><code class="highlighter-rouge">@param &lt;parameter name&gt; &lt;brief description of parameter&gt;</code></p>
+          </li>
+          <li>
+            <p><code class="highlighter-rouge">@return &lt;brief description of what is returned&gt;</code></p>
+          </li>
+          <li>
+            <p><code class="highlighter-rouge">@throws &lt;Exception&gt; &lt;brief explanation of when the given exception is thrown&gt;</code></p>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>See the <a href="http://cs1331.gitlab.io/cs1331-style-guide.html">CS 1331 Style Guide</a> section on Javadoc comments for examples</p>
+  </li>
+</ul>
+
+<h2 id="checkstyle">Checkstyle</h2>
+<p>You will be required to follow checkstyle. For each violation the tool finds, you will lose one point on your total grade for this assignment.</p>
+
+<p>For <em>this homework</em>, the <strong>checkstyle cap is 100</strong>, meaning you can lose up to <strong>100</strong> points on this assignment due to style errors. <strong>Run checkstyle early, and get in the habit of writing style compliant code the first time</strong>. Don’t wait until 5 minutes before the deadline to find out that you have 100+ violations.</p>
+
+<ul>
+  <li>
+    <p>If you encounter trouble running checkstyle, check Piazza for a solution and/or ask a TA as soon as you can!</p>
+  </li>
+  <li>
+    <p>You can run checkstyle on your code by using the jar file found <a href="http://cs1331.gitlab.io/cs1331-style-guide.html">on the course website</a> like so: <code class="highlighter-rouge">java -jar checkstyle-6.2.2.jar -a *.java</code>.</p>
+  </li>
+  <li>
+    <p><strong>Note that the above is different from the normal method for running checkstyle.</strong>* Now, because we want you to <a href="#Javadocs">javadoc</a> your code, you must add the <code class="highlighter-rouge">-a</code> flag. To run checkstyle just for javadocs, you can use the <code class="highlighter-rouge">-j</code> flag instead.</p>
+  </li>
+  <li>
+    <p>Javadoc errors are the same as checkstyle errors, as in each one is worth a single point and they are counted towards the checkstyle cap.</p>
+  </li>
+  <li>
+    <p>** You will be responsible for running checkstyle on <em>ALL</em> of your code. **</p>
+  </li>
+  <li>
+    <p>Depending on your editor, you might be able to change some settings to make it easier to write style-compliant code. See <a href="http://cs1331.gitlab.io/customization-tips.html">the customization tips page</a> (at the bottom) for more information.</p>
+  </li>
+</ul>
+
+<h2 id="submission">Submission</h2>
+
+<p>Submit your <code class="highlighter-rouge">MyList.java</code> file as attachments to the hw5 assignment on Canvas. You can submit as many times as you want, so feel free to submit as you make substantial progress on the homework. We only grade your last submission, meaning we will ignore any previous submissions. <strong>Submit every file every time you resubmit</strong>.</p>
+
+<p>As always, <strong>late submissions will not be accepted and non-compiling code will be given a score of 0</strong>. <code class="highlighter-rouge">MyList.java</code> must compile with <code class="highlighter-rouge">List.java</code> to receive credit. For this reason, we recommend submitting early and then confirming that you submitted ALL of the necessary files by re-downloading your file(s) and compiling/running them.</p>
+
+<p><strong>Good luck, and have fun!</strong></p>
+
+      </div>
+
+  <!-- Bootstrap core JavaScript
+  ================================================== -->
+  <!-- Placed at the end of the document so the pages load faster -->
+  <script src="../../../js/bootstrap.min.js"></script>
+  </body>
+  </html>

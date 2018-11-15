@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>HW6 - Database</title>
+  <meta name="viewport" content="width=device-width">
+
+  <!-- syntax highlighting CSS -->
+  <link rel="stylesheet" href="../../../css/syntax.css">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="../../../css/main.css">
+
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="../../../css/bootstrap.min.css">
+
+  <!-- Custom styles for this template -->
+  <link href="css/navbar-fixed-top.css" rel="stylesheet">
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+      <![endif]-->
+
+       <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+    </head>
+    <body>
+
+      <div class="container">
+      <h1 id="homework-6---database">Homework 6 - Database</h1>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>In this assignment you will practice</p>
+
+<ul>
+  <li>Using <a href="https://docs.oracle.com/javase/10/docs/api/java/util/Optional.html">Optional</a></li>
+  <li>Using <a href="https://docs.oracle.com/javase/10/docs/api/java/util/function/Predicate.html">Predicate</a></li>
+  <li>Using Lists</li>
+  <li>Using Lambdas, Anonymous classes, and Inner classes</li>
+</ul>
+
+<h2 id="problem-description">Problem Description</h2>
+
+<p>In this homework, you will create many useful classes for our end goal of making an ATM database!</p>
+
+<ul>
+  <li><code class="highlighter-rouge">Transaction</code>
+    <ul>
+      <li>Keeps track of withdrawals/deposits from/into an account.</li>
+    </ul>
+  </li>
+  <li><code class="highlighter-rouge">Account</code>
+    <ul>
+      <li>Keeps track of a list of Transactions for a customer.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>You will be provided a <a href="./TransactionType.java">TransactionType</a> enum.</p>
+
+<h2 id="solution-description">Solution Description</h2>
+
+<p>Classes:</p>
+
+<ul>
+  <li>
+    <p><code class="highlighter-rouge">Transaction</code></p>
+
+    <ul>
+      <li>fields:
+        <ul>
+          <li><code class="highlighter-rouge">TransactionType</code> type;</li>
+          <li><code class="highlighter-rouge">double</code> amount;</li>
+          <li><code class="highlighter-rouge">Optional&lt;String&gt;</code> comment; (See link above for Optional documentation)</li>
+        </ul>
+      </li>
+      <li>methods:
+        <ul>
+          <li>Getter methods for all fields.</li>
+          <li><code class="highlighter-rouge">boolean hasComment()</code> should return true if comment is not empty, false otherwise.</li>
+        </ul>
+      </li>
+      <li>constructors:
+        <ul>
+          <li>one that takes in <code class="highlighter-rouge">type</code> and <code class="highlighter-rouge">amount</code> in that order and assigns them. Sets the <code class="highlighter-rouge">comment</code> to Optional.empty().</li>
+          <li>one that takes in <code class="highlighter-rouge">type</code> and <code class="highlighter-rouge">amount</code> in that order and assigns them. Also take in a third parameter that is a String that represents that value of the comment. Properly initialize the comment field with this String.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">Account</code></p>
+
+    <ul>
+      <li>fields:
+        <ul>
+          <li><code class="highlighter-rouge">List&lt;Transaction&gt;</code> pastTransactions</li>
+        </ul>
+      </li>
+      <li>methods:
+        <ul>
+          <li><code class="highlighter-rouge">Transaction getTransaction(int n)</code>: returns the nth transaction from pastTransactions. <code class="highlighter-rouge">n</code> will always be valid.</li>
+          <li><code class="highlighter-rouge">List&lt;Transaction&gt; findTransactionsByPredicate(Predicate&lt;Transaction&gt; predicate)</code>: Returns a list of <code class="highlighter-rouge">Transaction</code>s from <code class="highlighter-rouge">pastTransactions</code> filtered by the predicate. If the predicate returns true when a <code class="highlighter-rouge">Transaction</code> is passed in, keep it. Otherwise filter it out of the returned list. Must not modify <code class="highlighter-rouge">pastTransactions</code> field. (See link above for documentation on Predicate)</li>
+          <li><code class="highlighter-rouge">List&lt;Transaction&gt; getTransactionsByAmount(double amount)</code>: returns a list of <code class="highlighter-rouge">Transaction</code>s with an amount field that equals the parameter amount. Must not modify <code class="highlighter-rouge">pastTransactions</code> field. Must call <code class="highlighter-rouge">findTransactionsByPredicate</code> with an instance of an <strong>inner class</strong>.</li>
+          <li><code class="highlighter-rouge">List&lt;Transaction&gt; getWithdrawals()</code>: returns a list of <code class="highlighter-rouge">Transaction</code>s that are withdrawals. Must not modify <code class="highlighter-rouge">pastTransactions</code> field. Must call <code class="highlighter-rouge">findTransactionsByPredicate</code> with an instance created with an <strong>anonymous inner class</strong>.</li>
+          <li><code class="highlighter-rouge">List&lt;Transaction&gt; getDeposits()</code>: returns a list of <code class="highlighter-rouge">Transaction</code>s that are deposits. Must not modify <code class="highlighter-rouge">pastTransactions</code> field. Must call <code class="highlighter-rouge">findTransactionsByPredicate</code> with an instance created with a <strong>lambda expression</strong>.</li>
+          <li><code class="highlighter-rouge">List&lt;Transaction&gt; getTransactionsWithCommentLongerThan(int length)</code>: returns a list of <code class="highlighter-rouge">Transaction</code>s with comments that are longer than <code class="highlighter-rouge">length</code>. Must not modify <code class="highlighter-rouge">pastTransactions</code> field. Must call <code class="highlighter-rouge">findTransactionsByPredicate</code> but you can use whatever technique to create the Predicate that you like.</li>
+          <li><code class="highlighter-rouge">List&lt;Transaction&gt; getTransactionsWithComment()</code>: returns a list of <code class="highlighter-rouge">Transaction</code>s with a comment that is not empty. Must not modify <code class="highlighter-rouge">pastTransactions</code> field. Must call <code class="highlighter-rouge">findTransactionsByPredicate</code> with a <strong>lambda expression or method reference</strong>. Method references aren’t taught but they are very useful so feel free to look up how to use them!</li>
+          <li>Getter for <code class="highlighter-rouge">pastTransactions</code>.</li>
+        </ul>
+      </li>
+      <li>constructors
+        <ul>
+          <li>Make a constructor that takes in a List of <code class="highlighter-rouge">Transaction</code>s assign that list to <code class="highlighter-rouge">pastTransactions</code>.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p>If there are any classes that you are unfamiliar with (e.g. Predicate or Optional), look them up in Javadocs. Make the visibility of all the methods and fields as you see best fits good programming style.</p>
+
+<h2 id="allowed-imports">Allowed imports</h2>
+
+<p>If there is something else you’d like to use, ask on Piazza.</p>
+
+<ul>
+  <li>Optional</li>
+  <li>Predicate</li>
+  <li>List</li>
+  <li>Any subclass of List</li>
+</ul>
+
+<h2 id="running-and-testing">Running and Testing</h2>
+
+<p>You should create your own testing class to verify that your code works (Don’t submit it though).</p>
+
+<p>Make sure that all your code can be compiled and ran from the command line.</p>
+
+<h2 id="grading">Grading</h2>
+
+<p><strong>Submit code that compiles!!!</strong></p>
+
+<p>Non compiling code will receive an automatic zero.</p>
+
+<ul>
+  <li>
+    <p>Transaction (25 Points)</p>
+
+    <ul>
+      <li>Each field is correctly declared (2pts per field)</li>
+      <li>Constructors (5pts per constructor)</li>
+      <li>Getter methods (2pt per getter)</li>
+      <li>hasComment (3pts)</li>
+    </ul>
+  </li>
+  <li>
+    <p>Account (75 points)</p>
+    <ul>
+      <li>pastTransactions is correctly declared and assigned (5pts)</li>
+      <li><code class="highlighter-rouge">getTransaction()</code> (10)</li>
+      <li><code class="highlighter-rouge">getTransactionsByAmount</code> (10)</li>
+      <li><code class="highlighter-rouge">getWithdrawals</code> (10)</li>
+      <li><code class="highlighter-rouge">getDeposits</code> (10)</li>
+      <li><code class="highlighter-rouge">getTransactionsWithCommentLongerThan</code> (10)</li>
+      <li><code class="highlighter-rouge">getTransactionsWithComment</code> (10)</li>
+      <li><code class="highlighter-rouge">findTransactionsByPredicate</code> (10)</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="tips-and-considerations">Tips and Considerations</h2>
+
+<p><strong>Please start as soon as possible!</strong> The earlier you start this assignment, the more time you will have to think and ask questions. If anything seems confusing, read through the entire description and instructions again. As always, feel free to contact your TAs, post on Piazza, or come in for office hours.</p>
+
+<h2 id="javadocs">Javadocs</h2>
+
+<ul>
+  <li>
+    <p>You will need to write Javadoc comments. Not following the Javadoc requirements will count as checkstyle errors.</p>
+
+    <ul>
+      <li>
+        <p>Every class should have a class level Javadoc that includes <code class="highlighter-rouge">@author &lt;GT Username&gt;</code>.</p>
+      </li>
+      <li>
+        <p>Every method should have a Javadoc explaining what the method does and includes any of the following tags if applicable.</p>
+
+        <ul>
+          <li>
+            <p><code class="highlighter-rouge">@param &lt;parameter name&gt; &lt;brief description of parameter&gt;</code></p>
+          </li>
+          <li>
+            <p><code class="highlighter-rouge">@returns &lt;brief description of what is returned&gt;</code></p>
+          </li>
+          <li>
+            <p><code class="highlighter-rouge">@throws &lt;Exception&gt; &lt;brief explanation of when the given exception is thrown&gt;</code></p>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>See the <a href="https://cs1331.gitlab.io/cs1331-style-guide.html">CS 1331 Style Guide</a> section on Javadoc comments for examples.</p>
+  </li>
+</ul>
+
+<h2 id="checkstyle">Checkstyle</h2>
+
+<p>You must run checkstyle on your code to check for violations. For each violation the tool finds, you will lose one point on your total grade for this assignment.</p>
+
+<p>For <em>this homework</em>, the <strong>checkstyle cap is 100</strong>, meaning you can lose up to <strong>100</strong> points on this assignment due to style errors. As the semester goes on, this cap will increase with each homework and will eventually go away. <strong>Run checkstyle early, and get in the habit of writing style compliant code the first time</strong>. Don’t wait until 5 minutes before the deadline to find out that you have 100+ violations.</p>
+
+<ul>
+  <li>If you encounter trouble running checkstyle, check Piazza for a solution and/or ask a TA as soon as you can!</li>
+  <li>You can run checkstyle on your code by using the jar file found on the course website that includes xml configuration file specifying our checks. <strong>To check the style of your code run</strong> <code class="highlighter-rouge">java -jar checkstyle-6.2.2.jar *.java</code>.</li>
+  <li><strong>To check your Javadocs run</strong> <code class="highlighter-rouge">java -jar checkstyle-6.2.2.jar -j *.java</code>.</li>
+  <li>Note that the command for checking code and the command for checking Javadocs are different. <strong>You will have to run both commands to fully test for style errors.</strong></li>
+  <li>Javadoc errors are the same as checkstyle errors, as in each one is worth a single point and they are counted towards the checkstyle cap.</li>
+</ul>
+
+<h2 id="collaboration">Collaboration</h2>
+
+<p>When completing homeworks for CS1331 you may talk with other students about:</p>
+
+<ul>
+  <li>What general strategies or algorithms you used to solve problems in the homeworks</li>
+  <li>Parts of the homework you are unsure of and need more explanation</li>
+  <li>Online resources that helped you find a solution</li>
+  <li>Key course concepts and Java language features used in your solution</li>
+</ul>
+
+<p>You may <strong>not</strong> discuss, show, or share by other means the specifics of your code, including screenshots, file sharing, or showing someone else the code on your computer, or use code shared by others.</p>
+
+<p>Examples of approved/disapproved collaboration:</p>
+
+<ul>
+  <li><strong>Approved</strong>: “Hey, I’m really confused on how we are supposed to implement this part of the homework. What strategies/resources did you use to solve it?”</li>
+  <li><strong>Disapproved</strong>: “Yo it’s 10:40 on Thursday… Can I see your code? I won’t copy it directly I promise”</li>
+</ul>
+
+<p>In addition to the above rules, note that it is not allowed to upload your code to any sort of public repository. This could be considered an Honor Code violation, even if it is after the homework is due.</p>
+
+<h2 id="submission">Submission</h2>
+
+<p>Submit your <code class="highlighter-rouge">Transaction</code> and <code class="highlighter-rouge">Account</code> files as attachments to the hw6 assignment on Canvas. Be sure to check Piazza for clarifications and updates before submitting. You can submit as many times as you want, so feel free to submit as you make substantial progress on the homework. We only grade your last submission, meaning we will ignore any previous submissions. <strong>Submit every file every time you resubmit</strong>.</p>
+
+<p>As always, <strong>late submissions will not be accepted and non-compiling code will be given a score of 0</strong>. For this reason, we recommend submitting early and then confirming that you submitted ALL of the necessary files by re-downloading your file(s) and compiling/running them.</p>
+
+<p><strong>Good luck, and have fun!</strong></p>
+
+      </div>
+
+  <!-- Bootstrap core JavaScript
+  ================================================== -->
+  <!-- Placed at the end of the document so the pages load faster -->
+  <script src="../../../js/bootstrap.min.js"></script>
+  </body>
+  </html>

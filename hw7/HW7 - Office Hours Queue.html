@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>HW7 - Office Hours Queue</title>
+  <meta name="viewport" content="width=device-width">
+
+  <!-- syntax highlighting CSS -->
+  <link rel="stylesheet" href="../../../css/syntax.css">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="../../../css/main.css">
+
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="../../../css/bootstrap.min.css">
+
+  <!-- Custom styles for this template -->
+  <link href="css/navbar-fixed-top.css" rel="stylesheet">
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+      <![endif]-->
+
+       <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+    </head>
+    <body>
+
+      <div class="container">
+      <h1 id="office-hours-queue">Office Hours Queue</h1>
+
+<h2 id="problem-description">Problem Description</h2>
+
+<p>You’re an innovative TA for CS 1321. You’ve noticed your whiteboard queue system
+often gets crowded and complicated on busy days. You decide that, since you
+learned JavaFX when you took the course, you will implement an office hours
+queue in JavaFX.</p>
+
+<p><img src="screenshot4.png" alt="Example application" /> <img src="screenshot3.png" alt="Example pop-up" /></p>
+
+<p><em>One possible design of the application</em></p>
+
+<h2 id="solution-description">Solution Description</h2>
+
+<p>For this homework, your main task is to build a JavaFX application, called
+<code class="highlighter-rouge">OfficeHourQueue</code> (this is the name of the class), which meets the following
+functional requirements:</p>
+<ul>
+  <li>Allows students to type their names into a text box and add themselves to the
+queue by clicking a button</li>
+  <li>Allow TAs to press a “dequeue” button to remove the student at the head of
+the queue. This is a privileged action (see below for more details).</li>
+  <li>Display the queue, with the most recently added students at the bottom of the
+queue (lower on the screen).</li>
+  <li>Display the current size of the queue, along with the maximum size the queue
+has ever reached.</li>
+  <li>For privileged actions, the program should display a pop-up asking the user
+for a password. The correct password is “CS1321R0X”. If the user enters an
+invalid password, the action should have no effect. Otherwise the action should
+proceed.</li>
+</ul>
+
+<p>It is entirely possible to complete this assignment using a simple <code class="highlighter-rouge">LinkedList</code>
+and updating a series of basic nodes within a <code class="highlighter-rouge">VBox</code>, however you may want to
+consider using the javafx <code class="highlighter-rouge">ListView</code> class and some of the methods within
+<code class="highlighter-rouge">FXCollections</code>. We will be grading based on the functionality of your GUI, so
+how you decide to implement it is up to you.</p>
+
+<p><strong>Note:</strong> For <code class="highlighter-rouge">OfficeHourQueue</code>, you are allowed to import anything that
+doesn’t trivialize the assignment. For example, you may use
+<code class="highlighter-rouge">java.util.LinkedList</code> or
+<code class="highlighter-rouge">javafx.collections.FXCollections.observableArrayList()</code> as a collection for
+storing students currently in the queue, or any any JavaFX classes you need.
+You shouldn’t import some <code class="highlighter-rouge">GUIQueueWithPasswordSupport</code> class that does the
+entire assignment for you. If you aren’t sure about a specific import, ask on
+Piazza.</p>
+
+<h2 id="extra-credit">Extra Credit</h2>
+
+<p>For extra credit, you have the option to implement your own queue instead of
+using <code class="highlighter-rouge">LinkedList</code> or the FXCollections <code class="highlighter-rouge">ObservableArrayList</code> for keeping
+track of the students in office hours. Your queue should be a linked
+list contained in a <strong>generic</strong> class called <code class="highlighter-rouge">LinkedQueue&lt;E&gt;</code>, which must
+extend
+<a href="https://docs.oracle.com/javase/8/javafx/api/javafx/collections/ModifiableObservableListBase.html">ModifiableObservableListBase</a>
+and implement the following two interfaces: <code class="highlighter-rouge">Iterable</code>
+and <a href="SimpleQueue.java">SimpleQueue.java</a>.
+The <a href="LinkedQueueNode.java">LinkedQueueNode.java</a> class has been provided to
+help with your implementation.</p>
+
+<p>You must use an instance of <code class="highlighter-rouge">LinkedQueue</code> for keeping track of students within
+<code class="highlighter-rouge">OfficeHoursQueue</code> to receive extra credit. Thoroughly test your GUI to
+ensure everything functions appropriately.</p>
+
+<p><strong>Note:</strong> For <code class="highlighter-rouge">LinkedQueue</code>, you are allowed to import <code class="highlighter-rouge">java.util.Iterator</code>,
+<code class="highlighter-rouge">java.util.NoSuchElementException</code>, and
+<code class="highlighter-rouge">javafx.collections.ModifiableObservableListBase</code>. <strong>Do not import any lists,
+sets, or collections from java.util.</strong> If you want to use any other imports,
+ask on Piazza.</p>
+
+<h2 id="rubric">Rubric</h2>
+
+<p>This homework has 90 points of extra credit for a total of <strong>190</strong> points.</p>
+
+<p>[100] <strong>OfficeHourQueue</strong></p>
+<ul>
+  <li>[10] Student name text box and buttons exist.</li>
+  <li>[20] Dequeue button exists and removes students.
+    <ul>
+      <li>If you do not implement the privileged action pop-up, remove them anyways
+for credit.</li>
+    </ul>
+  </li>
+  <li>[30] Queue properly displays students, with the most recently added students
+at the bottom.</li>
+  <li>[20] Current queue size and historical maximum queue size displays.</li>
+  <li>[10] Pop-up displays for privileged actions.</li>
+  <li>[10] Actions do not take effect if invalid password is entered.</li>
+</ul>
+
+<p>[90] <strong>LinkedQueue</strong></p>
+<ul>
+  <li>[10] <code class="highlighter-rouge">enqueue</code> adds an element to the queue</li>
+  <li>[12] <code class="highlighter-rouge">doAdd</code>
+    <ul>
+      <li>[10] Adds an element to the queue at a specific index</li>
+      <li>[2] Throws an <code class="highlighter-rouge">IndexOutOfBoundsException</code> if the index is invalid</li>
+    </ul>
+  </li>
+  <li>[12] <code class="highlighter-rouge">dequeue</code>
+    <ul>
+      <li>[10] Removes the least recently added element when queue is non-empty</li>
+      <li>[2] Returns null when queue is empty</li>
+    </ul>
+  </li>
+  <li>[12] <code class="highlighter-rouge">doRemove</code>
+    <ul>
+      <li>[10] Removes an element from the queue at a specific index</li>
+      <li>[2] Throws an <code class="highlighter-rouge">IndexOutOfBoundsException</code> if the index is invalid</li>
+    </ul>
+  </li>
+  <li>[12] <code class="highlighter-rouge">get</code>
+    <ul>
+      <li>[10] Returns an element from the queue at a specific index</li>
+      <li>[2] Throws an <code class="highlighter-rouge">IndexOutOfBoundsException</code> if the index is invalid</li>
+    </ul>
+  </li>
+  <li>[2] <code class="highlighter-rouge">doSet</code> throws an <code class="highlighter-rouge">UnsupportedOperationException</code></li>
+  <li>[15] <code class="highlighter-rouge">LinkedQueue</code> is <code class="highlighter-rouge">Iterable&lt;E&gt;</code>
+    <ul>
+      <li>[5] Implements <code class="highlighter-rouge">Iterable&lt;E&gt;</code> and has compiling <code class="highlighter-rouge">iterator()</code> method</li>
+      <li>[5] <code class="highlighter-rouge">hasNext()</code> method properly implemented in Iterator</li>
+      <li>[5] <code class="highlighter-rouge">next()</code> method properly implemented in Iterator</li>
+    </ul>
+  </li>
+  <li>[5] <code class="highlighter-rouge">size()</code> method returns size of queue</li>
+  <li>[5] <code class="highlighter-rouge">clear()</code> method empties queue and sets size to 0</li>
+  <li>[5] <code class="highlighter-rouge">isEmpty()</code> method returns true when queue is empty, false otherwise</li>
+</ul>
+
+<h2 id="checkstyle">Checkstyle</h2>
+
+<p>For each of your homework assignments we will run checkstyle and deduct one point for every checkstyle error.</p>
+
+<p>There is <strong>no checkstyle cap</strong> for this assignment, meaning that the amount of points lost for checkstyle errors is not limited.</p>
+
+<ul>
+  <li>If you encounter trouble running checkstyle, check Piazza for a solution and/or ask a TA as soon as you can!</li>
+  <li>You can run checkstyle on your code by using the jar file found on the course website. To check the style of your code run  <code class="highlighter-rouge">java -jar checkstyle-6.2.2.jar -a *.java</code>.</li>
+  <li>Javadoc errors are the same as checkstyle errors, as in each one is worth a single point and they are counted towards the checkstyle cap.</li>
+  <li><strong>You will be responsible for running checkstyle on <em>ALL</em> of the code you submit, including provided code.</strong></li>
+  <li>If you do choose to modify files in model or controller, you are responsible for ensuring that they remain checkstyle compliant.</li>
+  <li>Depending on your editor, you might be able to change some settings to make it easier to write style-compliant code. See the <a href="http://cs1331.gatech.edu/customization-tips.html">customization tips</a> page for more information.</li>
+</ul>
+
+<h2 id="submission">Submission</h2>
+
+<p>For this assignment, you will be submitting a zip file that contains any and all files needed for your submission to compile and run properly. Please be sure to compress all of your files and name the zip file following this naming convention: <code class="highlighter-rouge">GTID_hw7.zip</code>. The zip file you submit should look like this:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gburdell3_hw7.zip
+</code></pre></div></div>
+
+<p>Submit all files necessary for your program to run. Do not submit <code class="highlighter-rouge">.class</code> files; only submit <code class="highlighter-rouge">.java</code> files. Check Piazza before submitting for important updates and clarifications.</p>
+
+<p><em>Please</em> make sure you have included all the necessary files for your program to compile and run. If your submission does not compile because you forgot a file, or if it cannot run because an image is missing, we won’t be able to award you any points no matter how small the error. Re-download and double check your submission in a different folder from your original project to make sure it works!</p>
+
+<p><strong>NOTE: Please be sure to remove any class files before you zip up your project!!!</strong></p>
+
+      </div>
+
+  <!-- Bootstrap core JavaScript
+  ================================================== -->
+  <!-- Placed at the end of the document so the pages load faster -->
+  <script src="../../../js/bootstrap.min.js"></script>
+  </body>
+  </html>
